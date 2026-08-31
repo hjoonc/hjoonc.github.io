@@ -43,7 +43,7 @@ social:
     # - https://github.com/username # change to your GitHub homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    https://www.linkedin.com/in/hyejoon-cho-b6b59a359
+    - https://www.linkedin.com/in/hyejoon-cho-b6b59a359
 
 # Site Verification Settings
 webmaster_verifications:

@@ -3,13 +3,13 @@
 - type: email
   icon: "fas fa-envelope"
   noblank: true
+  
+- type: github
+  icon: "fab fa-github"
 
 #- type: linkedin
 #  icon: "fab fa-linkedin"
 #  url: "https://www.linkedin.com/in/hyejoon-cho-b6b59a359"
-  
-- type: github
-  icon: "fab fa-github"
 
 #- type: twitter
 #  icon: "fa-brands fa-x-twitter"

@@ -1,6 +1,6 @@
 ---
 title: "사회 초년생이 알아두면 좋은 회사생활 꿀팁"
-categories: [Work Life]
+categories: [Engineer Life]
 tags: [Career, Work Tips]
 ---
 

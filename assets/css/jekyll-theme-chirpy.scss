@@ -1,0 +1,21 @@
+.rtos-table1 table {
+  width: 100%;
+  white-space: normal;
+}
+
+.rtos-table1 table th,
+.rtos-table1 table td {
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.rtos-table1 table th:first-child,
+.rtos-table1 table td:first-child {
+  width: 25%;
+}
+
+.rtos-table1 table th:nth-child(2),
+.rtos-table1 table td:nth-child(2) {
+  width: 75%;
+}

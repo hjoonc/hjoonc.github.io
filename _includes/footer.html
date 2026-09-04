@@ -34,7 +34,7 @@
     {%- endcapture -%}
 
     {%- capture _theme -%}
-      
+      <a
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="v{{ theme.version }}"
@@ -56,6 +56,8 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
   }
 
   .paw {
@@ -96,6 +98,7 @@
   const cat = document.getElementById('cat-cursor');
   let mouseX = 0, mouseY = 0;
   let catX = 0, catY = 0;
+  let hasMoved = false;
 
   function animateCat() {
     catX += (mouseX - catX) * 0.1;
@@ -111,7 +114,14 @@
 
   document.addEventListener('mousemove', function(e) {
     mouseX = e.clientX + 35;
-    mouseY = e.clientY + 20;
+    mouseY = e.clientY + 5;
+
+    if (!hasMoved) {
+      hasMoved = true;
+      catX = mouseX;
+      catY = mouseY;
+      cat.style.opacity = '1';
+    }
 
     const now = Date.now();
     if (now - lastPawTime < 120) { return; }

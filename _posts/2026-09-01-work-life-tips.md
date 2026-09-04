@@ -2,6 +2,7 @@
 title: "사회 초년생이 알아두면 좋은 회사생활 꿀팁"
 categories: [Engineer Life]
 tags: [Career, Work Tips]
+published: false
 ---
 
 ## 왜 이런 글을 쓰게 되었는지

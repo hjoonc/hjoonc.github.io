@@ -1,6 +1,6 @@
 ---
 title: "[블리치] 아이젠 소스케 명대사 모음"
-categories: [취향, Bleach]
+categories: [卍解, Bleach]
 tags: [Anime, Bleach]
 ---
 

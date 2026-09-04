@@ -34,7 +34,7 @@
     {%- endcapture -%}
 
     {%- capture _theme -%}
-      <a
+      
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         title="v{{ theme.version }}"
@@ -93,7 +93,6 @@
 <div id="cat-cursor">🐈‍⬛</div>
 
 <script>
-  // ---------- 고양이가 마우스를 따라다님 ----------
   const cat = document.getElementById('cat-cursor');
   let mouseX = 0, mouseY = 0;
   let catX = 0, catY = 0;
@@ -107,16 +106,15 @@
   }
   animateCat();
 
-  // ---------- 발바닥 트레일 ----------
   let lastPawTime = 0;
   let pawToggle = false;
 
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX + 35; // 고양이가 커서보다 살짝 오른쪽에 위치
-    mouseY = e.clientY + 45; // 고양이는 커서보다 넉넉히 아래에서 따라옴
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX + 35;
+    mouseY = e.clientY + 45;
 
     const now = Date.now();
-    if (now - lastPawTime < 120) return;
+    if (now - lastPawTime < 120) { return; }
     lastPawTime = now;
     pawToggle = !pawToggle;
 
@@ -129,13 +127,12 @@
     paw.style.setProperty('--rot', (pawToggle ? -15 : 15) + 'deg');
     document.body.appendChild(paw);
 
-    setTimeout(() => paw.remove(), 900);
+    setTimeout(function() { paw.remove(); }, 900);
   });
 
-  // ---------- 클릭 시 발바닥 폭죽 ----------
   const burstEmojis = ['🐾'];
 
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', function(e) {
     const count = 14;
     for (let i = 0; i < count; i++) {
       const p = document.createElement('div');
@@ -154,8 +151,7 @@
       p.style.setProperty('--rot', (Math.random() * 360 - 180) + 'deg');
 
       document.body.appendChild(p);
-      setTimeout(() => p.remove(), 800);
+      setTimeout(function() { p.remove(); }, 800);
     }
   });
 </script>
-

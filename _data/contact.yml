@@ -1,18 +1,27 @@
 #  The contact options.
 
+- type: gmail
+  icon: "fas fa-envelope"
+  url: "https://mail.google.com/mail/?view=cm&fs=1&to=hjcho96aa@gmail.com"
+  
 - type: github
   icon: "fab fa-github"
 
-- type: twitter
-  icon: "fa-brands fa-x-twitter"
+- type: linkedin
+  icon: "fab fa-linkedin"
+  url: "https://www.linkedin.com/in/hyejoon-cho-b6b59a359/"
 
-- type: email
-  icon: "fas fa-envelope"
-  noblank: true # open link in current tab
+#- type: twitter
+#  icon: "fa-brands fa-x-twitter"
 
-- type: rss
-  icon: "fas fa-rss"
-  noblank: true
+#- type: email
+#  icon: "fas fa-envelope"
+#  noblank: true # open link in current tab
+
+#- type: rss
+#  icon: "fas fa-rss"
+#  noblank: true
+  
 # Uncomment and complete the url below to enable more contact options
 #
 # - type: mastodon

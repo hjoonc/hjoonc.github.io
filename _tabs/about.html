@@ -1,0 +1,515 @@
+---
+layout: null
+icon: fas fa-info-circle
+order: 4
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #12151a;
+    --surface: #1a1e25;
+    --surface-line: #2a2f38;
+    --text-primary: #eceef1;
+    --text-secondary: #838d9c;
+    --accent: #b794f6;
+    --accent-dim: #49386b;
+    --trace-off: #2a2f38;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-sans: 'Noto Sans KR', sans-serif;
+  }
+
+  .wrap,
+  .wrap * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* background PCB-trace texture */
+  /* 
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.35;
+    background-image:
+      linear-gradient(var(--surface-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--surface-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 40% at 20% 10%, black 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse 80% 40% at 20% 10%, black 0%, transparent 70%);
+    pointer-events: none;
+  }
+ */
+  .wrap {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ===== Trace spine (relative to content, not viewport) ===== */
+  .trace-rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: var(--trace-off);
+    z-index: 2;
+  }
+  .trace-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(180deg, var(--accent), #e0c7ff);
+    box-shadow: 0 0 12px 1px rgba(183, 148, 246, 0.55);
+    transition: height 0.15s linear;
+  }
+  .trace-node {
+    position: absolute;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    transform: translate(-5px, -5px);
+    border-radius: 50%;
+    background: var(--trace-off);
+    border: 2px solid var(--bg);
+    z-index: 3;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  .trace-node.lit {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(183, 148, 246, 0.15), 0 0 14px 2px rgba(183, 148, 246, 0.6);
+  }
+
+  /*
+  @media (max-width: 720px) {
+    .wrap { padding: 0 20px 0 52px; }
+  }
+*/
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 20px; }          /* 기존 "0 20px 0 52px"에서 왼쪽 여백 제거 */
+  
+    .hero,
+    section.card-section {
+      padding-left: 0;                   /* 회로선 자리로 비워뒀던 왼쪽 여백 제거 */
+      text-align: center;
+    }
+  
+    .hero p { margin-left: auto; margin-right: auto; }
+  
+    .tag-row,
+    .role-row,
+    .focus-item { justify-content: center; }
+  
+    .trace-rail,
+    .trace-node { display: none; }       /* 왼쪽 회로선/점도 폰에서는 숨김 */
+  }
+  /* ===== Hero ===== */
+  .hero {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 56px;
+  }
+  .hero .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.35;
+    max-width: none;
+    white-space: nowrap;
+    margin-bottom: 24px;
+  }
+  .hero p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    max-width: 75ch;
+  }
+  .hero .scroll-hint {
+    margin-top: 56px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .scroll-hint .bar {
+    width: 24px;
+    height: 1px;
+    background: var(--text-secondary);
+    animation: pulse-x 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse-x {
+    0%, 100% { transform: scaleX(1); opacity: 0.6; }
+    50% { transform: scaleX(1.6); opacity: 1; }
+  }
+
+  /* ===== Sections / Cards ===== */
+  section.card-section {
+    padding: 35px 0 35px 56px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: 14px;
+    padding: 44px 40px;
+    opacity: 0;
+    animation-duration: 0.8s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: forwards;
+  }
+  .card.from-right { animation-name: reveal-right; }
+  .card.from-left { animation-name: reveal-left; }
+
+  @keyframes reveal-right {
+    from { opacity: 0; transform: translate(56px, 12px); }
+    to   { opacity: 1; transform: translate(0, 0); }
+  }
+  @keyframes reveal-left {
+    from { opacity: 0; transform: translate(-56px, 12px); }
+    to   { opacity: 1; transform: translate(0, 0); }
+  }
+
+  section.card-section:nth-of-type(1) .card { animation-delay: 0.1s; }
+  section.card-section:nth-of-type(2) .card { animation-delay: 0.35s; }
+  section.card-section:nth-of-type(3) .card { animation-delay: 0.6s; }
+  section.card-section:nth-of-type(4) .card { animation-delay: 0.85s; }
+
+  .card-num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .card p {
+    color: var(--text-secondary);
+    line-height: 1.9;
+    font-size: 15.5px;
+    max-width: 75ch;
+  }
+  .card p + p { margin-top: 14px; }
+
+  /* tag pills for "what I do" */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-primary);
+    background: #14171d;
+    border: 1px solid var(--surface-line);
+    border-radius: 7px;
+    padding: 7px 13px;
+  }
+
+  /* focus list */
+  .focus-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .focus-item {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--surface-line);
+  }
+  .focus-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .focus-item .fi-mark {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .focus-item .fi-text {
+    color: var(--text-primary);
+    font-size: 15.5px;
+  }
+
+  /* contact card */
+  .contact-card {
+    background: linear-gradient(155deg, #1d1828, var(--surface) 55%);
+    border: 1px solid var(--accent-dim);
+  }
+  .role-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0 28px;
+  }
+  .role-pill {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    border-radius: 999px;
+    padding: 8px 16px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 13px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(183, 148, 246, 0.28);
+  }
+
+  .disclaimer {
+    margin-top: 22px;
+    font-size: 12.5px;
+    color: #5c6470;
+    line-height: 1.7;
+    max-width: 75ch;
+  }
+  .disclaimer.standalone {
+    margin-top: 18px;
+    padding-left: 2px;
+  }
+
+  footer {
+    padding: 60px 56px 80px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #4a515c;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card, .scroll-hint .bar { transition: none; animation: none; opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!--<div class="bg-grid"></div>-->
+  <div class="trace-rail"><div class="trace-fill" id="traceFill"></div></div>
+  <div class="trace-node" id="node0"></div>
+  <div class="trace-node" id="node1"></div>
+  <div class="trace-node" id="node2"></div>
+  <div class="trace-node" id="node3"></div>
+  <div class="trace-node" id="node4"></div>
+
+
+  <section class="hero">
+    <h1>Automotive Software Engineer</h1>
+    <p>
+      안녕하세요. 7년 차 자동차 소프트웨어 엔지니어입니다.<br>
+      차량 제어 소프트웨어 개발부터 검증까지 다양한 업무를 경험해왔고,<br> 
+      이제는 그 경험을 바탕으로 Software Testing과 Validation 영역으로 전문성을 넓혀가고 있습니다.
+    </p>
+    <div class="scroll-hint"><span class="bar"></span> SCROLL</div>
+  </section>
+
+  <section class="card-section" data-node="1">
+    <div class="card from-left">
+      <div class="card-num">01 · INTRO</div>
+      <h2>이 블로그에 대하여</h2>
+      <p>
+        자동차 소프트웨어 개발자로 일하며 그동안 업무와 학습 과정에서 배우고 정리해 둔 내용들을 블로그에 하나씩 기록하고 있습니다. 
+        주로 Automotive Software, Embedded System, AUTOSAR, SDV, Software Testing 등에 대해 다룹니다.
+      </p>
+      <p>
+        자동차 소프트웨어를 처음 접하거나 이제 막 실무를 시작하시는 분들에게 이곳의 기록이 조금이나마 도움이 되었으면 합니다.<br>
+        자동차 업계에서 일하시는 분들과의 소통과 네트워킹도 환영합니다.
+      </p>
+    </div>
+  </section>
+
+  <section class="card-section" data-node="2">
+    <div class="card from-left">
+      <div class="card-num">02 · CAREER</div>
+      <h2>Automotive Software Engineer</h2>
+
+      <p>
+        <strong>2020.07 — Present · 과장</strong><br><br>
+        자동차 제어 소프트웨어의 설계와 구현, 실차 검증을 수행해 왔습니다.<br>
+        Embedded System을 기반으로 차량 제어, 통신 및 진단 기능을 개발하고 있습니다.
+      </p>
+
+      <div class="tag-row">
+        <span class="tag">Vehicle Control</span>
+        <span class="tag">Embedded SW</span>
+        <span class="tag">CAN</span>
+        <span class="tag">UDS</span>
+        <span class="tag">In-Vehicle Testing</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section" data-node="3">
+    <div class="card from-left">
+      <div class="card-num">03 · SKILLS & Certificate</div>
+      <h2>Skills & Certificate</h2>
+
+      <div class="focus-list">
+        <div class="focus-item">
+          <span class="fi-mark">▸</span>
+          <span class="fi-text">
+            <strong>Languages</strong><br>
+            C · C++ · Python · MATLAB
+          </span>
+        </div>
+
+        <div class="focus-item">
+          <span class="fi-mark">▸</span>
+          <span class="fi-text">
+            <strong>Tools</strong><br>
+            CANoe · INCA · Simulink · Wireshark · Trace32
+          </span>
+        </div>
+
+        <div class="focus-item">
+          <span class="fi-mark">▸</span>
+          <span class="fi-text">
+            <strong>Technologies</strong><br>
+            RTOS · CAN · UDS · SOME/IP · AUTOSAR · SDV
+          </span>
+        </div>
+
+        <div class="focus-item">
+          <span class="fi-mark">▸</span>
+          <span class="fi-text">
+            <strong>Certificate</strong><br>
+            ISTQB CTFL · SQLD · TOEIC Speaking(AL)
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section" data-node="4">
+    <div class="card from-left">
+      <div class="card-num">04 · LET'S CONNECT</div>
+      <h2>LET'S CONNECT</h2>
+      <p>
+        Automotive Software와 Software Testing에 대한 이야기와 정보 공유를 환영합니다.<br>
+        관련 분야의 교류나 협업에 관심이 있으시다면 편하게 연락 주세요.
+      </p>
+      <div class="role-row">
+        <span class="role-pill">Software Testing</span>
+        <span class="role-pill">Validation</span>
+        <span class="role-pill">Automotive Software</span>
+      </div>
+      <a class="cta"
+         href="https://mail.google.com/mail/?view=cm&fs=1&to=hjcho96aa@gmail.com"
+         target="_blank">
+        Mail →
+      </a>
+      
+      <br>
+      
+      <a class="cta"
+         href="https://www.linkedin.com/in/hyejoon-cho-b6b59a359/"
+         target="_blank">
+        LinkedIn →
+      </a>
+    </div>
+    <p class="disclaimer standalone">
+      이 블로그의 글은 개인적인 학습과 경험을 바탕으로 작성되어, 일부 내용은 정확하지 않을 수 있습니다.
+    </p>
+  </section>
+
+
+
+<!-- <footer>© AUTOMOTIVE SW ENGINEER</footer> -->
+
+</div>
+
+<script>
+  // Trace fill + node lighting, computed relative to the content wrap (not the viewport)
+  const wrapEl = document.querySelector('.wrap');
+  const traceFill = document.getElementById('traceFill');
+  const node0 = document.getElementById('node0');
+  const heroEl = document.querySelector('.hero');
+  const nodes = [1,2,3,4].map(n => document.getElementById('node' + n));
+  const sections = document.querySelectorAll('.card-section');
+
+  function updateTrace() {
+    const wrapTop = wrapEl.getBoundingClientRect().top + window.scrollY;
+    const wrapHeight = wrapEl.offsetHeight;
+
+    // hero marker
+    const heroRect = heroEl.getBoundingClientRect();
+    node0.style.top = ((heroRect.top + window.scrollY) - wrapTop + heroRect.height / 2) + 'px';
+
+    // section markers
+    sections.forEach((sec, i) => {
+      const rect = sec.getBoundingClientRect();
+      const topRelative = (rect.top + window.scrollY) - wrapTop + 60;
+      nodes[i].style.top = topRelative + 'px';
+      if (rect.top < window.innerHeight * 0.7) {
+        nodes[i].classList.add('lit');
+      } else {
+        nodes[i].classList.remove('lit');
+      }
+    });
+
+    // fill progress: how far we've scrolled through the wrap
+    const scrolledPastWrapTop = window.scrollY - wrapTop;
+    const scrollableRange = wrapHeight - window.innerHeight * 0.3;
+    const pct = Math.min(100, Math.max(0, (scrolledPastWrapTop / scrollableRange) * 100));
+    traceFill.style.height = pct + '%';
+  }
+
+  window.addEventListener('scroll', updateTrace, { passive: true });
+  window.addEventListener('resize', updateTrace);
+  updateTrace();
+</script>
+
+</body>
+</html>

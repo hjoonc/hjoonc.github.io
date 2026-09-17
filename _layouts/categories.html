@@ -12,7 +12,7 @@ layout: page
      SOFTWARE ENGINEERING
 ========================================================= -->
 
-<h2 class="mt-4 mb-3">[Software Engineering]</h2>
+<h2 class="mt-4 mb-3">Software Engineering</h2>
 
 <div class="card categories">
   <div class="card-body">
@@ -40,20 +40,33 @@ layout: page
 
         <div class="category-group mb-4">
 
-          {% if subcategories.size > 0 %}
+          <div class="d-flex align-items-center justify-content-between">
 
-            <h3 class="category-title">
-              <a
-                data-bs-toggle="collapse"
-                href="#{{ collapse_id }}"
-                role="button"
-                aria-expanded="true"
-                aria-controls="{{ collapse_id }}"
-              >
+            <!-- 카테고리 이름: 전체 글 페이지로 이동 -->
+            <h3 class="category-title mb-0">
+              <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
                 {{ target }}
               </a>
             </h3>
 
+            <!-- 하위 카테고리가 있을 때만 접기/펼치기 버튼 표시 -->
+            {% if subcategories.size > 0 %}
+              <button
+                class="btn btn-link p-1 text-muted"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#{{ collapse_id }}"
+                aria-expanded="true"
+                aria-controls="{{ collapse_id }}"
+                title="Toggle subcategories"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+            {% endif %}
+
+          </div>
+
+          {% if subcategories.size > 0 %}
             <div class="collapse show" id="{{ collapse_id }}">
               <ul>
                 {% for subcategory in subcategories %}
@@ -65,15 +78,6 @@ layout: page
                 {% endfor %}
               </ul>
             </div>
-
-          {% else %}
-
-            <h3 class="category-title">
-              <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
-                {{ target }}
-              </a>
-            </h3>
-
           {% endif %}
 
         </div>
@@ -90,7 +94,7 @@ layout: page
      AI & DATA
 ========================================================= -->
 
-<h2 class="mt-5 mb-3">[AI &amp; Data]</h2>
+<h2 class="mt-5 mb-3">AI &amp; Data</h2>
 
 <div class="card categories">
   <div class="card-body">
@@ -118,20 +122,33 @@ layout: page
 
         <div class="category-group mb-4">
 
-          {% if subcategories.size > 0 %}
+          <div class="d-flex align-items-center justify-content-between">
 
-            <h3 class="category-title">
-              <a
-                data-bs-toggle="collapse"
-                href="#{{ collapse_id }}"
-                role="button"
-                aria-expanded="true"
-                aria-controls="{{ collapse_id }}"
-              >
+            <!-- 카테고리 이름: 전체 글 페이지로 이동 -->
+            <h3 class="category-title mb-0">
+              <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
                 {{ target }}
               </a>
             </h3>
 
+            <!-- 하위 카테고리가 있을 때만 접기/펼치기 버튼 표시 -->
+            {% if subcategories.size > 0 %}
+              <button
+                class="btn btn-link p-1 text-muted"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#{{ collapse_id }}"
+                aria-expanded="true"
+                aria-controls="{{ collapse_id }}"
+                title="Toggle subcategories"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+            {% endif %}
+
+          </div>
+
+          {% if subcategories.size > 0 %}
             <div class="collapse show" id="{{ collapse_id }}">
               <ul>
                 {% for subcategory in subcategories %}
@@ -143,15 +160,6 @@ layout: page
                 {% endfor %}
               </ul>
             </div>
-
-          {% else %}
-
-            <h3 class="category-title">
-              <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
-                {{ target }}
-              </a>
-            </h3>
-
           {% endif %}
 
         </div>
@@ -166,15 +174,14 @@ layout: page
 
 <!-- =========================================================
      OTHERS
-     위 두 그룹에 포함되지 않은 실제 상위 카테고리 자동 표시
 ========================================================= -->
 
 {% assign has_others = false %}
 
 {% for category in site.categories %}
+
   {% assign category_name = category[0] %}
   {% assign category_posts = category[1] %}
-
   {% assign is_top_category = false %}
 
   {% for post in category_posts %}
@@ -191,12 +198,13 @@ layout: page
       {% endif %}
     {% endunless %}
   {% endunless %}
+
 {% endfor %}
 
 
 {% if has_others %}
 
-<h2 class="mt-5 mb-3">[Others]</h2>
+<h2 class="mt-5 mb-3">Others</h2>
 
 <div class="card categories">
   <div class="card-body">
@@ -205,7 +213,6 @@ layout: page
 
       {% assign target = category[0] %}
       {% assign category_posts = category[1] %}
-
       {% assign is_top_category = false %}
 
       {% for post in category_posts %}
@@ -241,23 +248,35 @@ layout: page
 
             <div class="category-group mb-4">
 
-              {% if subcategories.size > 0 %}
+              <div class="d-flex align-items-center justify-content-between">
 
-                <h3 class="category-title">
-                  <a
-                    data-bs-toggle="collapse"
-                    href="#{{ collapse_id }}"
-                    role="button"
-                    aria-expanded="true"
-                    aria-controls="{{ collapse_id }}"
-                  >
+                <!-- 카테고리 이름: 전체 글 페이지로 이동 -->
+                <h3 class="category-title mb-0">
+                  <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
                     {{ target }}
                   </a>
                 </h3>
 
+                <!-- 하위 카테고리가 있을 때만 접기/펼치기 버튼 표시 -->
+                {% if subcategories.size > 0 %}
+                  <button
+                    class="btn btn-link p-1 text-muted"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#{{ collapse_id }}"
+                    aria-expanded="true"
+                    aria-controls="{{ collapse_id }}"
+                    title="Toggle subcategories"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                {% endif %}
+
+              </div>
+
+              {% if subcategories.size > 0 %}
                 <div class="collapse show" id="{{ collapse_id }}">
                   <ul>
-
                     {% for subcategory in subcategories %}
                       <li>
                         <a href="{{ site.baseurl }}/categories/{{ subcategory | slugify | url_encode }}/">
@@ -265,18 +284,8 @@ layout: page
                         </a>
                       </li>
                     {% endfor %}
-
                   </ul>
                 </div>
-
-              {% else %}
-
-                <h3 class="category-title">
-                  <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
-                    {{ target }}
-                  </a>
-                </h3>
-
               {% endif %}
 
             </div>

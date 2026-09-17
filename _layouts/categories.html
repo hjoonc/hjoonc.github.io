@@ -1,0 +1,111 @@
+---
+layout: page
+---
+
+{% include lang.html %}
+
+{% assign software_categories = "Automotive Software|OS|Testing Certifications" | split: "|" %}
+{% assign ai_categories = "AI & Data Science|AI & Data Certifications" | split: "|" %}
+
+<!-- SOFTWARE ENGINEERING -->
+<h2 class="mt-4 mb-3">[Software Engineering]</h2>
+
+<div class="card categories">
+  <div class="card-body">
+    {% for target in software_categories %}
+
+      {% assign category_posts = site.categories[target] %}
+
+      {% if category_posts %}
+        <div class="category-group mb-4">
+
+          <h3 class="category-title">
+            <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
+              {{ target }}
+            </a>
+          </h3>
+
+          {% assign subcategories = "" | split: "" %}
+
+          {% for post in category_posts %}
+            {% if post.categories.size > 1 %}
+              {% assign subcategory = post.categories[1] %}
+
+              {% unless subcategories contains subcategory %}
+                {% assign subcategories = subcategories | push: subcategory %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign subcategories = subcategories | sort %}
+
+          {% if subcategories.size > 0 %}
+            <ul>
+              {% for subcategory in subcategories %}
+                <li>
+                  <a href="{{ site.baseurl }}/categories/{{ subcategory | slugify | url_encode }}/">
+                    {{ subcategory }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+        </div>
+      {% endif %}
+
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- AI & DATA -->
+<h2 class="mt-5 mb-3">[AI &amp; Data]</h2>
+
+<div class="card categories">
+  <div class="card-body">
+    {% for target in ai_categories %}
+
+      {% assign category_posts = site.categories[target] %}
+
+      {% if category_posts %}
+        <div class="category-group mb-4">
+
+          <h3 class="category-title">
+            <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
+              {{ target }}
+            </a>
+          </h3>
+
+          {% assign subcategories = "" | split: "" %}
+
+          {% for post in category_posts %}
+            {% if post.categories.size > 1 %}
+              {% assign subcategory = post.categories[1] %}
+
+              {% unless subcategories contains subcategory %}
+                {% assign subcategories = subcategories | push: subcategory %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign subcategories = subcategories | sort %}
+
+          {% if subcategories.size > 0 %}
+            <ul>
+              {% for subcategory in subcategories %}
+                <li>
+                  <a href="{{ site.baseurl }}/categories/{{ subcategory | slugify | url_encode }}/">
+                    {{ subcategory }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+        </div>
+      {% endif %}
+
+    {% endfor %}
+  </div>
+</div>

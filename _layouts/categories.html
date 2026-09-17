@@ -15,7 +15,7 @@ layout: page
 <h2 class="mt-4 mb-3">Software Engineering</h2>
 
 <div class="card categories">
-  <div class="card-body">
+  <div class="card-body py-3">
 
     {% for target in software_categories %}
 
@@ -38,7 +38,7 @@ layout: page
         {% assign subcategories = subcategories | sort %}
         {% assign collapse_id = "software-" | append: forloop.index %}
 
-        <div class="category-group mb-4">
+        <div class="category-group mb-2">
 
           <div class="d-flex align-items-center justify-content-between">
 
@@ -97,7 +97,7 @@ layout: page
 <h2 class="mt-5 mb-3">AI &amp; Data</h2>
 
 <div class="card categories">
-  <div class="card-body">
+  <div class="card-body py-3">
 
     {% for target in ai_categories %}
 
@@ -120,7 +120,7 @@ layout: page
         {% assign subcategories = subcategories | sort %}
         {% assign collapse_id = "ai-" | append: forloop.index %}
 
-        <div class="category-group mb-4">
+        <div class="category-group mb-2">
 
           <div class="d-flex align-items-center justify-content-between">
 
@@ -207,7 +207,7 @@ layout: page
 <h2 class="mt-5 mb-3">Others</h2>
 
 <div class="card categories">
-  <div class="card-body">
+  <div class="card-body py-3">
 
     {% for category in site.categories %}
 
@@ -246,7 +246,7 @@ layout: page
             {% assign subcategories = subcategories | sort %}
             {% assign collapse_id = "others-" | append: forloop.index %}
 
-            <div class="category-group mb-4">
+            <div class="category-group mb-2">
 
               <div class="d-flex align-items-center justify-content-between">
 

@@ -8,7 +8,10 @@ layout: page
 {% assign ai_categories = "AI & Data Science|AI & Data Certifications" | split: "|" %}
 
 
-<!-- SOFTWARE ENGINEERING -->
+<!-- =========================================================
+     SOFTWARE ENGINEERING
+========================================================= -->
+
 <h2 class="mt-4 mb-3">[Software Engineering]</h2>
 
 <div class="card categories">
@@ -17,9 +20,11 @@ layout: page
     {% for target in software_categories %}
 
       {% assign category_posts = site.categories[target] %}
-      {% assign subcategories = "" | split: "" %}
 
       {% if category_posts %}
+
+        {% assign subcategories = "" | split: "" %}
+
         {% for post in category_posts %}
           {% if post.categories.size > 1 %}
             {% assign subcategory = post.categories[1] %}
@@ -29,50 +34,51 @@ layout: page
             {% endunless %}
           {% endif %}
         {% endfor %}
+
+        {% assign subcategories = subcategories | sort %}
+        {% assign collapse_id = "software-" | append: forloop.index %}
+
+        <div class="category-group mb-4">
+
+          {% if subcategories.size > 0 %}
+
+            <h3 class="category-title">
+              <a
+                data-bs-toggle="collapse"
+                href="#{{ collapse_id }}"
+                role="button"
+                aria-expanded="true"
+                aria-controls="{{ collapse_id }}"
+              >
+                {{ target }}
+              </a>
+            </h3>
+
+            <div class="collapse show" id="{{ collapse_id }}">
+              <ul>
+                {% for subcategory in subcategories %}
+                  <li>
+                    <a href="{{ site.baseurl }}/categories/{{ subcategory | slugify | url_encode }}/">
+                      {{ subcategory }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+          {% else %}
+
+            <h3 class="category-title">
+              <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
+                {{ target }}
+              </a>
+            </h3>
+
+          {% endif %}
+
+        </div>
+
       {% endif %}
-
-      {% assign subcategories = subcategories | sort %}
-      {% assign collapse_id = "software-" | append: forloop.index %}
-
-      <div class="category-group mb-4">
-
-        {% if subcategories.size > 0 %}
-
-          <h3 class="category-title">
-            <a
-              data-bs-toggle="collapse"
-              href="#{{ collapse_id }}"
-              role="button"
-              aria-expanded="true"
-              aria-controls="{{ collapse_id }}"
-            >
-              {{ target }}
-            </a>
-          </h3>
-
-          <div class="collapse show" id="{{ collapse_id }}">
-            <ul>
-              {% for subcategory in subcategories %}
-                <li>
-                  <a href="{{ site.baseurl }}/categories/{{ subcategory | slugify | url_encode }}/">
-                    {{ subcategory }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-
-        {% else %}
-
-          <h3 class="category-title">
-            <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
-              {{ target }}
-            </a>
-          </h3>
-
-        {% endif %}
-
-      </div>
 
     {% endfor %}
 
@@ -80,7 +86,10 @@ layout: page
 </div>
 
 
-<!-- AI & DATA -->
+<!-- =========================================================
+     AI & DATA
+========================================================= -->
+
 <h2 class="mt-5 mb-3">[AI &amp; Data]</h2>
 
 <div class="card categories">
@@ -89,9 +98,11 @@ layout: page
     {% for target in ai_categories %}
 
       {% assign category_posts = site.categories[target] %}
-      {% assign subcategories = "" | split: "" %}
 
       {% if category_posts %}
+
+        {% assign subcategories = "" | split: "" %}
+
         {% for post in category_posts %}
           {% if post.categories.size > 1 %}
             {% assign subcategory = post.categories[1] %}
@@ -101,52 +112,183 @@ layout: page
             {% endunless %}
           {% endif %}
         {% endfor %}
+
+        {% assign subcategories = subcategories | sort %}
+        {% assign collapse_id = "ai-" | append: forloop.index %}
+
+        <div class="category-group mb-4">
+
+          {% if subcategories.size > 0 %}
+
+            <h3 class="category-title">
+              <a
+                data-bs-toggle="collapse"
+                href="#{{ collapse_id }}"
+                role="button"
+                aria-expanded="true"
+                aria-controls="{{ collapse_id }}"
+              >
+                {{ target }}
+              </a>
+            </h3>
+
+            <div class="collapse show" id="{{ collapse_id }}">
+              <ul>
+                {% for subcategory in subcategories %}
+                  <li>
+                    <a href="{{ site.baseurl }}/categories/{{ subcategory | slugify | url_encode }}/">
+                      {{ subcategory }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+          {% else %}
+
+            <h3 class="category-title">
+              <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
+                {{ target }}
+              </a>
+            </h3>
+
+          {% endif %}
+
+        </div>
+
       {% endif %}
-
-      {% assign subcategories = subcategories | sort %}
-      {% assign collapse_id = "ai-" | append: forloop.index %}
-
-      <div class="category-group mb-4">
-
-        {% if subcategories.size > 0 %}
-
-          <h3 class="category-title">
-            <a
-              data-bs-toggle="collapse"
-              href="#{{ collapse_id }}"
-              role="button"
-              aria-expanded="true"
-              aria-controls="{{ collapse_id }}"
-            >
-              {{ target }}
-            </a>
-          </h3>
-
-          <div class="collapse show" id="{{ collapse_id }}">
-            <ul>
-              {% for subcategory in subcategories %}
-                <li>
-                  <a href="{{ site.baseurl }}/categories/{{ subcategory | slugify | url_encode }}/">
-                    {{ subcategory }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-
-        {% else %}
-
-          <h3 class="category-title">
-            <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
-              {{ target }}
-            </a>
-          </h3>
-
-        {% endif %}
-
-      </div>
 
     {% endfor %}
 
   </div>
 </div>
+
+
+<!-- =========================================================
+     OTHERS
+     위 두 그룹에 포함되지 않은 실제 상위 카테고리 자동 표시
+========================================================= -->
+
+{% assign has_others = false %}
+
+{% for category in site.categories %}
+  {% assign category_name = category[0] %}
+  {% assign category_posts = category[1] %}
+
+  {% assign is_top_category = false %}
+
+  {% for post in category_posts %}
+    {% if post.categories[0] == category_name %}
+      {% assign is_top_category = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% unless software_categories contains category_name %}
+    {% unless ai_categories contains category_name %}
+      {% if is_top_category %}
+        {% assign has_others = true %}
+      {% endif %}
+    {% endunless %}
+  {% endunless %}
+{% endfor %}
+
+
+{% if has_others %}
+
+<h2 class="mt-5 mb-3">[Others]</h2>
+
+<div class="card categories">
+  <div class="card-body">
+
+    {% for category in site.categories %}
+
+      {% assign target = category[0] %}
+      {% assign category_posts = category[1] %}
+
+      {% assign is_top_category = false %}
+
+      {% for post in category_posts %}
+        {% if post.categories[0] == target %}
+          {% assign is_top_category = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% unless software_categories contains target %}
+        {% unless ai_categories contains target %}
+
+          {% if is_top_category %}
+
+            {% assign subcategories = "" | split: "" %}
+
+            {% for post in category_posts %}
+              {% if post.categories.size > 1 %}
+                {% if post.categories[0] == target %}
+
+                  {% assign subcategory = post.categories[1] %}
+
+                  {% unless subcategories contains subcategory %}
+                    {% assign subcategories = subcategories | push: subcategory %}
+                  {% endunless %}
+
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            {% assign subcategories = subcategories | sort %}
+            {% assign collapse_id = "others-" | append: forloop.index %}
+
+            <div class="category-group mb-4">
+
+              {% if subcategories.size > 0 %}
+
+                <h3 class="category-title">
+                  <a
+                    data-bs-toggle="collapse"
+                    href="#{{ collapse_id }}"
+                    role="button"
+                    aria-expanded="true"
+                    aria-controls="{{ collapse_id }}"
+                  >
+                    {{ target }}
+                  </a>
+                </h3>
+
+                <div class="collapse show" id="{{ collapse_id }}">
+                  <ul>
+
+                    {% for subcategory in subcategories %}
+                      <li>
+                        <a href="{{ site.baseurl }}/categories/{{ subcategory | slugify | url_encode }}/">
+                          {{ subcategory }}
+                        </a>
+                      </li>
+                    {% endfor %}
+
+                  </ul>
+                </div>
+
+              {% else %}
+
+                <h3 class="category-title">
+                  <a href="{{ site.baseurl }}/categories/{{ target | slugify | url_encode }}/">
+                    {{ target }}
+                  </a>
+                </h3>
+
+              {% endif %}
+
+            </div>
+
+          {% endif %}
+
+        {% endunless %}
+      {% endunless %}
+
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endif %}

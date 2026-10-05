@@ -2,7 +2,6 @@
 title: "[FreeRTOS] Critical 함수 - Enter, Exit"
 categories: [OS, RTOS]
 tags: [OS, RTOS, FreeRTOS]
-published: false
 ---
 
 ## Critical Enter
@@ -51,12 +50,14 @@ void taskEXIT_CRITICAL( void );
 ## 공통 동작 및 주의 사항
 
 - 인터럽트 차단 범위
-  - **configMAX_SYSCALL_INTERRUPT_PRIORITY를 사용하지 않는 포트**:
-    - 인터럽트가 **전체적으로 비활성화**된다.
-  - **해당 설정을 사용하는 포트**:
-    - 설정된 우선순위와 **같거나 더 낮은 우선순위의 인터럽트가 비활성화**된다.
-    - **더 높은 우선순위의 인터럽트는 실행될 수 있으므로**, 해당 ISR과 공유하는 데이터는 별도 보호가 필요하다.
-    - 포트에 따라 설정 이름이 **configMAX_API_CALL_INTERRUPT_PRIORITY**일 수 있다.
+  - **포트는 FreeRTOS를 특정 MCU에서 동작하도록 구현한 코드**이며, 포트에 따라 인터럽트 차단 방식이 다르다.
+  - **전체 차단 방식의 포트**:
+    - configMAX_SYSCALL_INTERRUPT_PRIORITY를 사용하지 않으며, **인터럽트를 전체적으로 비활성화**한다.
+  - **우선순위 기준 차단 방식의 포트**:
+    - FreeRTOSConfig.h에서 설정한 **configMAX_SYSCALL_INTERRUPT_PRIORITY 값을 차단 기준으로 사용**한다.
+    - 기준과 같거나 낮은 우선순위의 인터럽트는 차단된다.
+    - 기준보다 높은 우선순위의 인터럽트는 계속 실행될 수 있으므로, 해당 ISR과 공유하는 데이터는 별도 보호가 필요하다.
+    - 포트에 따라 설정 이름이 configMAX_API_CALL_INTERRUPT_PRIORITY일 수 있다.
 
 - Task 전환
   - 관련 인터럽트가 차단되어 **선점형 Task 전환이 발생하지 않으며**, 현재 Task가 **Running 상태를 유지**한다.

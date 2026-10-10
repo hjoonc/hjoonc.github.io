@@ -1,5 +1,5 @@
 ---
-title: "[Network] 기본 네트워크 정리"
+title: "[Network] 기본 네트워크 개념 정리"
 categories: [Automotive Software, Network]
 tags: [Network, OSI 7Layer]
 ---
